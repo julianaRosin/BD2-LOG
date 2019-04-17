@@ -1,3 +1,13 @@
+'''
+
+Atividade  que simula um sistema de log UNDO/REDO
+A classe Parser recebe o nome do arquivo de log
+e retorna os valores após a execução do parser
+
+Desenvolvido por: Juliana Rosin e Vinicius Rifam
+
+16/04/2019
+'''
 class Parser:
     def __init__(self,nomeArquivo):
         self.nomeArquivo = nomeArquivo
@@ -6,7 +16,7 @@ class Parser:
         self.alteracoes = []
         self.transacoes = {}
         self.checkpoints = {}
-        self.linhasCheck = []
+        self.undoRedo()
 
     def parseDados(self,linha):
         dados = linha.split(' | ')
@@ -82,6 +92,7 @@ class Parser:
                 elif self.transacoes[t][2] > flag:
                     if t not in self.list_tR:
                         self.list_tR.append(t)
+
     def undoRecovery(self):
         for alt in self.alteracoes[::-1]:
             if alt[0] in self.list_tU:
@@ -91,11 +102,13 @@ class Parser:
         for alt in self.alteracoes:
             if alt[0] in self.list_tR:
                 self.dados[alt[1]] = alt[3]
+
+    def undoRedo(self):
+        self.readOperacoes()
+        self.verificaCheckPoint()
+        self.undoRecovery()
+        self.redoRecovery()
         print(self.dados)
 
-
 p = Parser('ent2.txt')
-p.readOperacoes()
-p.verificaCheckPoint()
-p.undoRecovery()
-p.redoRecovery()
+#p = Parser('ent.txt')
