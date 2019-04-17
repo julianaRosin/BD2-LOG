@@ -1,7 +1,7 @@
 '''
 
 Atividade  que simula um sistema de log UNDO/REDO
-A classe Parser recebe o nome do arquivo de log
+A classe Parser recebe o caminho do arquivo de log
 e retorna os valores após a execução do parser
 
 Desenvolvido por: Juliana Rosin e Vinicius Rifam
