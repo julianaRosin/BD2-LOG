@@ -24,7 +24,7 @@ class Parser:
             e = d.split('=')
             if e[0] not in self.dados:
                 self.dados[e[0]]=e[1]
-        print(self.dados)
+        #print(self.dados)
 
     def startTransacao(self,i,linha):
         t = linha.split(' ')
@@ -92,6 +92,9 @@ class Parser:
                 elif self.transacoes[t][2] > flag:
                     if t not in self.list_tR:
                         self.list_tR.append(t)
+                else:
+                    if t in self.list_tR:
+                        self.list_tR.remove(t)
 
     def undoRecovery(self):
         for alt in self.alteracoes[::-1]:
@@ -109,6 +112,7 @@ class Parser:
         self.undoRecovery()
         self.redoRecovery()
         print(self.dados)
+        self.closeArquivo()
 
-p = Parser('ent2.txt')
+p = Parser('teste03.txt')
 #p = Parser('ent.txt')
